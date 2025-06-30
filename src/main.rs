@@ -18,7 +18,6 @@ use tokio::net::TcpListener;
 use std::str::FromStr;
 use base64::{engine::general_purpose, Engine as _};
 
-// --- Response Structures ---
 
 #[derive(Serialize)]
 struct SuccessResponse<T> {
@@ -41,7 +40,6 @@ impl ErrorResponse {
     }
 }
 
-// --- Endpoint-Specific Structures ---
 
 #[derive(Serialize)]
 struct KeypairResponse {
@@ -145,7 +143,6 @@ impl From<AccountMeta> for SerializableAccountMeta {
     }
 }
 
-// --- Route Handlers ---
 
 async fn generate_keypair() -> Result<Json<SuccessResponse<KeypairResponse>>, (StatusCode, Json<ErrorResponse>)> {
     let keypair = Keypair::new();
@@ -390,7 +387,6 @@ async fn send_token(
 
 #[tokio::main]
 async fn main() {
-    println!("🚀 Solana HTTP Server starting on http://127.0.0.1:8080");
 
     let app = Router::new()
         .route("/keypair", post(generate_keypair))
